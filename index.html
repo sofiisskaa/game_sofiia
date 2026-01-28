@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Treasure Island</title>
+    <title>Treasure Island Game</title>
     <style>
         body {
-            background-color: #2C3E50; /* Темний фон як у прикладі */
+            background-color: #2C3E50; /* Темний фон, щоб не різало очі */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -13,23 +13,35 @@
             font-family: Arial, sans-serif;
         }
         .container {
+            width: 80%;
+            max-width: 800px;
             text-align: center;
             color: white;
         }
+        h1 {
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #000000;
+        }
+        /* Робимо вікно гри гарним */
         iframe {
+            width: 100%; 
+            height: 500px; /* Трохи збільшив висоту, щоб все влізло */
             border: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Тінь для краси */
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>🏴‍☠️ Sofiia's Treasure Island Game 🏴‍☠️</h1>
+        <h1> Treasure Island Game </h1>
         
-        (<iframe src="https://trinket.io/embed/python/3f0fec34e33e" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>)
+        <iframe src="https://trinket.io/embed/python/3f0fec34e33e?outputOnly=true&runOption=run" 
+                width="100%" height="500" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
+        </iframe>
         
-        </div>
+    </div>
 
 </body>
 </html>
