@@ -1,127 +1,35 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Treasure Island Game</title>
-    <link rel="stylesheet" href="https://pyscript.net/releases/2023.11.1/core.css" />
-    <script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
-    
+    <title>Treasure Island</title>
     <style>
-        /* Стилі для чорного екрану */
-        body { background-color: #1e1e1e; color: #00ff00; font-family: 'Courier New', monospace; padding: 20px; margin: 0; display: flex; flex-direction: column; height: 90vh; }
-        #terminal { flex-grow: 1; overflow-y: auto; white-space: pre-wrap; font-size: 16px; margin-bottom: 10px; }
-        #input-line { display: flex; border-top: 1px solid #333; padding-top: 10px; }
-        #prompt-symbol { margin-right: 10px; color: #00ff00; font-weight: bold; }
-        #user-input { background: transparent; border: none; color: white; font-family: inherit; font-size: 16px; flex-grow: 1; outline: none; }
-        /* Стиль для ASCII арту */
-        .art { color: #ffd700; font-size: 12px; line-height: 1.1; }
+        body {
+            background-color: #2C3E50; /* Темний фон як у прикладі */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            color: white;
+        }
+        iframe {
+            border: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Тінь для краси */
+        }
     </style>
 </head>
 <body>
 
-    <div id="terminal">Завантаження гри...</div>
+    <div class="container">
+        <h1>🏴‍☠️ Sofiia's Treasure Island Game 🏴‍☠️</h1>
+        
+        (<iframe src="https://trinket.io/embed/python/3f0fec34e33e" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>)
+        
+        </div>
 
-    <div id="input-line">
-        <span id="prompt-symbol">>>></span>
-        <input type="text" id="user-input" disabled autocomplete="off" placeholder="Зачекайте...">
-    </div>
-
-    <script type="py">
-        import asyncio
-        from pyscript import document, when
-
-        # --- НАЛАШТУВАННЯ ТЕРМІНАЛУ (Не чіпайте це) ---
-        term_out = document.querySelector("#terminal")
-        term_in = document.querySelector("#user-input")
-        input_future = None
-
-        def print(*args):
-            text = " ".join(map(str, args))
-            # Якщо це арт, додаємо спец клас
-            if "*" in text or "_" in text and len(text) > 20: 
-                term_out.innerHTML += f'<div class="art">{text}</div>'
-            else:
-                term_out.innerText += text + "\n"
-            term_out.scrollTop = term_out.scrollHeight
-
-        async def input(prompt=""):
-            if prompt:
-                print(prompt)
-            term_in.disabled = False
-            term_in.placeholder = "Введіть сюди..."
-            term_in.focus()
-            
-            global input_future
-            input_future = asyncio.Future()
-            return await input_future
-
-        @when("keypress", "#user-input")
-        async def handle_key(event):
-            if event.key == "Enter":
-                global input_future
-                val = term_in.value
-                term_in.value = ""
-                term_in.disabled = True
-                term_in.placeholder = ""
-                print(f"> {val}\n") # Показуємо, що ввів гравець
-                if input_future and not input_future.done():
-                    input_future.set_result(val)
-
-        # --- ВАШ КОД ГРИ ---
-        async def main():
-            term_out.innerText = "" # Очистити екран
-            
-            # Вставте ваш арт
-            print(r'''
-*
-                           __.--|~|--.__                               ,,;/;
-                         /~     | |    ;~\                          ,;;;/;;'
-                        /|      | |    ;~\\                      ,;;;;/;;;'
-                       |/|      \_/   ;;;|\                    ,;;;;/;;;;'
-                   ___ | ______     ;_____ |___....__      ,;;;;/;;;;;'
-             ___.-~ \\(| \  \.\ \__/ /./ /:|)~   ~   \   ,;;;;/;;;;;'
-         /~~~    ~\    |  ~-.     |   .-~: |//  _.-~~--,;;;;/;;;;;'
-     .-|             ~~|   |  /V""""V\ |:  |     ,;;;;/;;;;;' \
-    /                   \  |  ~`^~~^'~ |  /    ,;;;;/;;;;;'    ;
-   (        \             \|`\._____./'|/    ,;;;;/;;;;;'      '\
- |            |                          ,;;;;/;;;;;'      |     |
-            ''')
-            
-            print("Welcome to Treasure Island.")
-            print("Your mission is to find the treasure.\n")
-
-            # УВАГА: Тут ми використовуємо 'await input'
-            choice_1 = await input("You are in the middle of the jungle. You see a crossroad. Turn left or right?")
-            
-            if choice_1.lower() == "left":
-                choice_2 = await input('You come to the lake. Swim or walk?')
-                
-                if choice_2.lower() == "swim":
-                    choice_3 = await input('You see 3 boats: brown, black, yellow. Which one?')
-                    
-                    if choice_3.lower() == "black":
-                        choice_4 = await input("You found a key. Wait or go?")
-                        if choice_4.lower() == "go":
-                             choice_5 = await input("You see a door. Try key or run?")
-                             if choice_5.lower() == "try":
-                                 print("YOU WON! Congratulations!")
-                             else:
-                                 print("Game Over.")
-                        else:
-                             print("Game Over (Cold).")
-                    elif choice_3.lower() == "brown":
-                        print("Snakes! Game Over.")
-                    else:
-                        print("Acid! Game Over.")
-                else:
-                    print("Monkeys attacked! Game Over.")
-            else:
-                print("Fall from cliff. Game Over.")
-                
-            print("\n--- ГРА ЗАКІНЧЕНА (Оновіть сторінку, щоб почати знову) ---")
-
-        # Запуск гри
-        asyncio.ensure_future(main())
-    </script>
 </body>
 </html>
