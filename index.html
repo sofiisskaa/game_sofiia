@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treasure Island</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* Прибираємо всі відступи, щоб було на весь екран */
+        /* Убираем белые поля у самого браузера */
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
             width: 100%;
-            overflow: hidden; /* Прибираємо смуги прокрутки */
-            background-color: #000;
+            height: 100%;
+            overflow: hidden; /* Запрещаем прокрутку */
+            background-color: black;
         }
-        /* Розтягуємо вікно гри на 100% ширини та висоти */
+        /* Растягиваем окно игры на полную */
         iframe {
-            border: none;
-            width: 100%;
-            height: 100%;
             display: block;
+            width: 100vw;  /* 100% ширины экрана */
+            height: 100vh; /* 100% высоты экрана */
+            border: none;
         }
     </style>
 </head>
 <body>
 
-    <iframe src="https://trinket.io/embed/python/3f0fec34e33e?outputOnly=true&runOption=run" 
-            allowfullscreen>
-    </iframe>
+    <iframe src="https://trinket.io/embed/python/3f0fec34e33e?outputOnly=true&runOption=run" allowfullscreen></iframe>
 
 </body>
 </html>
